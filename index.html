@@ -16,9 +16,8 @@
     .card-body { padding: 1rem; }
     .card-title { font-size: 1.2rem; font-weight: bold; margin: 0 0 0.5rem; }
     .price { color: red; font-weight: bold; margin-top: 0.5rem; }
-    .category { font-size: 0.9rem; color: #555; margin: 0.5rem 0; }
     .btn { display: inline-block; background: #2563EA; color: white; padding: 0.6rem 1rem; border-radius: 6px; text-decoration: none; margin-top: 1rem; }
-    .btn:hover { background: #1e4db7; }
+    .btn:hover { background: #2563EA; }
     /* Modal */
     .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; }
     .modal-content { background: white; padding: 1.5rem; border-radius: 12px; max-width: 600px; width: 90%; max-height: 80%; overflow-y: auto; }
@@ -26,30 +25,14 @@
     .lessons { margin-top: 1rem; }
     .lesson-item { padding: 0.5rem 0; border-bottom: 1px solid #ddd; }
     .close { float: right; font-size: 1.2rem; cursor: pointer; }
-    /* Search and Filter */
-    .filter-bar { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
-    .filter-bar input, .filter-bar select { padding: 0.5rem; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; }
-    .filter-bar input { flex: 1; min-width: 200px; }
-    .filter-bar select { width: 200px; }
   </style>
 </head>
 <body>
   <header>
-    <h2>Daftar Course</h2>
-    <p>Silakan pilih sesuai dengan kebutuhan anda</p>
+    <h2>Daftar course</h2>
+        <p>Silakan pilih sesuai dengan kebutuhan anda</p>
   </header>
   <div class="container">
-    <div class="filter-bar">
-      <input type="text" id="searchInput" placeholder="Cari kursus..." oninput="filterCourses()">
-      <select id="sortSelect" onchange="sortCourses()">
-        <option value="">Urutkan Harga</option>
-        <option value="low-to-high">Harga: Rendah ke Tinggi</option>
-        <option value="high-to-low">Harga: Tinggi ke Rendah</option>
-      </select>
-      <select id="categorySelect" onchange="filterCourses()">
-        <option value="">Semua Kategori</option>
-      </select>
-    </div>
     <div id="courses" class="grid"></div>
   </div>
 
@@ -60,7 +43,6 @@
       <h2 id="courseTitle"></h2>
       <p id="courseDescription"></p>
       <p><strong>Instruktur:</strong> <span id="courseInstructor"></span></p>
-      <p class="category" id="courseCategory"></p>
       <p class="price" id="coursePrice"></p>
       <div class="lessons">
         <h3>Materi Kursus</h3>
@@ -77,97 +59,43 @@
 
     const coursesContainer = document.getElementById("courses");
     const modal = document.getElementById("courseModal");
-    const searchInput = document.getElementById("searchInput");
-    const sortSelect = document.getElementById("sortSelect");
-    const categorySelect = document.getElementById("categorySelect");
-    let coursesData = [];
-
-    async function loadCategories() {
-      const { data, error } = await supabase
-        .from("categories")
-        .select("id, name");
-      if (error) {
-        console.error("Error loading categories:", error);
-        return;
-      }
-      categorySelect.innerHTML = '<option value="">Semua Kategori</option>' +
-        data.map(category => `<option value="${category.id}">${category.name}</option>`).join("");
-    }
 
     async function loadCourses() {
       const { data, error } = await supabase
         .from("courses")
-        .select("id, title, description, price, instructor, cover_url, category_id, categories(name)");
+        .select("id, title, description, price, instructor, cover_url");
       if (error) {
-        console.error("Error loading courses:", error);
+        console.error(error);
         return;
       }
-      coursesData = data;
-      renderCourses(coursesData);
-    }
-
-    function renderCourses(courses) {
-      coursesContainer.innerHTML = courses.map(course => `
+      coursesContainer.innerHTML = data.map(course => `
         <div class="card" onclick="openCourse(${course.id})">
           <img src="${course.cover_url}" alt="${course.title}" />
           <div class="card-body">
             <h3 class="card-title">${course.title}</h3>
             <p>${course.description.substring(0, 60)}...</p>
-            <p class="category">${course.categories?.name || "Tidak ada kategori"}</p>
             <p class="price">Rp ${Number(course.price).toLocaleString("id-ID")}</p>
           </div>
         </div>
       `).join("");
     }
 
-    function filterCourses() {
-      let filteredCourses = [...coursesData];
-      const searchTerm = searchInput.value.toLowerCase();
-      const selectedCategory = categorySelect.value;
-
-      if (searchTerm) {
-        filteredCourses = filteredCourses.filter(course =>
-          course.title.toLowerCase().includes(searchTerm) ||
-          course.description.toLowerCase().includes(searchTerm)
-        );
-      }
-
-      if (selectedCategory) {
-        filteredCourses = filteredCourses.filter(course =>
-          course.category_id === parseInt(selectedCategory)
-        );
-      }
-
-      renderCourses(filteredCourses);
-    }
-
-    function sortCourses() {
-      let sortedCourses = [...coursesData];
-      const sortOption = sortSelect.value;
-
-      if (sortOption === "low-to-high") {
-        sortedCourses.sort((a, b) => a.price - b.price);
-      } else if (sortOption === "high-to-low") {
-        sortedCourses.sort((a, b) => b.price - a.price);
-      }
-
-      renderCourses(sortedCourses);
-    }
-
     async function openCourse(courseId) {
+      // Ambil detail kursus
       const { data: courseData } = await supabase
         .from("courses")
-        .select("id, title, description, price, instructor, category_id, categories(name)")
+        .select("id, title, description, price, instructor")
         .eq("id", courseId)
         .single();
 
+      // Update modal info
       document.getElementById("courseTitle").innerText = courseData.title;
       document.getElementById("courseDescription").innerText = courseData.description;
       document.getElementById("courseInstructor").innerText = courseData.instructor;
-      document.getElementById("courseCategory").innerText = courseData.categories?.name || "Tidak ada kategori";
       document.getElementById("coursePrice").innerText = 
         "Rp " + Number(courseData.price).toLocaleString("id-ID");
 
+      // Ambil daftar lessons
       const { data: lessons } = await supabase
         .from("lessons")
         .select("title, content, order_no")
@@ -179,6 +107,7 @@
         l => `<div class="lesson-item"><strong>${l.order_no}. ${l.title}</strong><br/>${l.content}</div>`
       ).join("");
 
+      // Tombol beli redirect
       document.getElementById("buyBtn").href = "https://py.orilix.net";
 
       modal.style.display = "flex";
@@ -194,8 +123,7 @@
       }
     }
 
-    // Load initial data
-    Promise.all([loadCategories(), loadCourses()]);
+    loadCourses();
   </script>
 </body>
 </html>
