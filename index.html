@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>DUNNAK Kurir Dashboard</title>
+  <title>dunnak.com-kurir</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -283,7 +283,7 @@
       <div class="flex justify-center mb-6">
         <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgZ8y1qrBVlJ0dcgOvB6K4iAMdnuTZ4dscQ_1RGrBKU2HcjKoN8DvPSg7KOkMctU2JAfxjDMU3EGxVxIuHXkbmDDJ2-mza-gxYVkq35RYw4kR94iWe1Fu8rhm9g8RwSqakU8Mw5rDMFnki5urzubHh9fTiT7yxr1i6NduseMm9im4qPICXLf1_w8E11oYZN/s3264/20250927_164816.png" alt="DUNNAK Logo" class="h-12 w-auto" onerror="this.style.display='none'" />
       </div>
-      <h2 class="text-xl font-semibold text-center mb-6">Login Kurir</h2>
+      <h2 class="text-xl font-semibold text-center mb-6">Silakan masuk</h2>
       <div class="space-y-4">
         <div>
           <input id="login-email" type="email" placeholder="Email Anda" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition" />
@@ -291,8 +291,8 @@
         <div>
           <input id="login-password" type="password" placeholder="Password" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition" />
         </div>
-        <button id="login-button" class="w-full bg-emerald-600 text-white py-2 rounded-lg hover:bg-emerald-700 flex justify-center items-center transition">
-          <span id="login-text">Login</span>
+        <button id="login-button" class="w-full bg-rose-500 text-white py-2 rounded-lg hover:bg-emerald-700 flex justify-center items-center transition">
+          <span id="login-text">Masuk</span>
           <span id="login-spinner" class="loading-spinner hidden"></span>
         </button>
       </div>
@@ -302,7 +302,7 @@
   <!-- DASHBOARD SECTION -->
   <section id="dashboard-section" class="max-w-7xl mx-auto px-4 py-8 hidden">
     <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
-      <h2 class="text-2xl font-bold text-gray-800">News order</h2>
+      <h2 class="text-2xl font-bold text-gray-800">Kurir - Dunnak.com</h2>
       <div class="flex items-center gap-4 flex-wrap">
         <div id="current-time" class="text-sm text-gray-600 font-medium"></div>
         <div class="flex items-center gap-2">
@@ -312,7 +312,7 @@
           </div>
         </div>
         <span id="user-email" class="text-sm font-medium text-gray-600"></span>
-        <button id="logout-button" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">Logout</button>
+        <button id="logout-button" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">Keluar</button>
       </div>
     </div>
     <ul id="orders-list" class="relative">
@@ -340,7 +340,7 @@
   <div id="qrcode-modal" class="fixed inset-0 hidden z-50 flex items-center justify-center p-4">
     <div class="absolute inset-0 bg-black/50" onclick="_xyz_closeQRCodeModal()"></div>
     <div class="relative bg-white rounded-2xl shadow-xl max-w-md w-full p-6">
-      <h3 class="text-lg font-semibold text-gray-800 mb-4">Verifikasi Merchant</h3>
+      <h3 class="text-lg font-semibold text-gray-800 mb-4">Verifikasi</h3>
       <div id="qrcode-modal-content" class="space-y-3 text-sm text-gray-600"></div>
       <div id="qrcode" class="mt-4"></div>
       <div class="mt-6 flex gap-3">
