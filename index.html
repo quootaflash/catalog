@@ -333,24 +333,83 @@
       </div>
     </div>
   </div>
+ <!-- QR CODE MODAL – PROFESIONAL & ELEGAN (KOMPATIBEL SCRIPT LAMA) -->
+<div id="qrcode-modal" class="fixed inset-0 hidden z-50 flex items-center justify-center p-4 md:p-8 overflow-y-auto">
+  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="_xyz_closeQRCodeModal()"></div>
 
-  <!-- QR CODE MODAL (AFTER LANJUTKAN) -->
-  <div id="qrcode-modal" class="fixed inset-0 hidden z-50 flex items-center justify-center p-4">
-    <div class="absolute inset-0 bg-black/50" onclick="_xyz_closeQRCodeModal()"></div>
-    <div class="relative bg-white rounded-2xl shadow-xl max-w-md w-full p-6">
-      <h3 class="text-lg font-semibold text-gray-800 mb-4">Verifikasi</h3>
-      <div id="qrcode-modal-content" class="space-y-3 text-sm text-gray-600"></div>
-      <div id="qrcode" class="mt-4"></div>
-      <div class="mt-6 flex gap-3">
-        <button id="antar-button" class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 flex justify-center items-center transition">
+  <div class="relative bg-white rounded-3xl shadow-2xl max-w-lg w-full mx-auto my-8 overflow-hidden border border-gray-100">
+    <!-- Header Hijau Emerald -->
+    <div class="bg-gradient-to-r from-emerald-600 to-emerald-700 px-8 py-10 text-center text-white">
+      <div class="w-20 h-20 mx-auto mb-4 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center">
+        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" 
+                d="M12 11c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm0 0c0 1.657 1.343 3 3 3s3-1.343 3-3-1.343-3-3-3-3 1.343-3 3zm-3 6c-1.657 0-3 1.343-3 3h12c0-1.657-1.343-3-3-3H9z"/>
+        </svg>
+      </div>
+      <h3 class="text-2xl md:text-3xl font-black">Verifikasi Pengantaran</h3>
+      <p class="mt-2 text-emerald-100 text-base">Scan QR Code pelanggan untuk konfirmasi</p>
+    </div>
+
+    <!-- Body -->
+    <div class="p-8 md:p-10">
+      <div id="qrcode-modal-content" class="space-y-4 text-center text-gray-700 mb-8">
+        <!-- Isi otomatis dari script lama -->
+      </div>
+
+      <!-- QR Code Container -->
+      <div class="flex justify-center mb-8">
+        <div id="qrcode" class="p-4 bg-gray-50 rounded-2xl shadow-inner border border-gray-200"></div>
+      </div>
+
+      <!-- Tombol Aksi -->
+      <div class="flex flex-col sm:flex-row gap-4">
+        <button id="antar-button" 
+                class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-lg py-5 rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 flex items-center justify-center gap-3">
           <span id="antar-text">Antar Pesanan</span>
           <span id="antar-spinner" class="loading-spinner hidden"></span>
         </button>
-        <button onclick="_xyz_closeQRCodeModal()" class="flex-1 border border-gray-300 py-2 rounded-lg hover:bg-gray-100 transition">Tutup</button>
+        <button onclick="_xyz_closeQRCodeModal()" 
+                class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold text-lg py-5 rounded-2xl transition shadow-md hover:shadow-lg">
+          Tutup
+        </button>
       </div>
-    </div>
-  </div>
 
+      <p class="text-center text-xs text-gray-500 mt-8">
+        Pastikan QR Code sesuai sebelum menekan tombol antar
+      </p>
+    </div>
+
+    <!-- Tombol Close di Pojok -->
+    <button onclick="_xyz_closeQRCodeModal()" 
+            class="absolute top-4 right-4 bg-white/20 hover:bg-white/40 text-white w-12 h-12 rounded-full flex items-center justify-center backdrop-blur transition shadow-lg">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  /* Spinner halus */
+  .loading-spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid #ffffff40;
+    border-top: 3px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Responsif di HP kecil */
+  @media (max-width: 480px) {
+    #qrcode-modal .rounded-3xl { border-radius: 1.5rem; }
+    #qrcode-modal h3 { font-size: 1.75rem; }
+  }
+</style>
   <!-- DELIVERY MODAL (AFTER ANTAR PESANAN) -->
   <div id="delivery-modal" class="fixed inset-0 hidden z-50 flex items-center justify-center p-4">
     <div class="absolute inset-0 bg-black/50" onclick="_xyz_closeDeliveryModal()"></div>
