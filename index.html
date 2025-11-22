@@ -298,221 +298,26 @@
       </div>
     </div>
   </section>
-<!-- DASHBOARD KURIR DUNNAK.COM – KHUSUS PENGANTAR -->
-<section id="dashboard-section" class="max-w-7xl mx-auto px-4 py-8 hidden">
-  <div class="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden">
-
-    <!-- Header Khusus Kurir -->
-    <div class="bg-gradient-to-r from-emerald-600 to-emerald-800 px-6 py-10 text-white">
-      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-        <div class="flex items-center gap-5">
-          <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center">
-            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" 
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-          </div>
-          <div>
-            <h2 class="text-2xl lg:text-3xl font-black tracking-tight">Dashboard Kurir</h2>
-            <p class="text-emerald-100 text-base lg:text-lg font-medium mt-1">
-              <span id="courier-name">Kurir Dunnak</span> — Siap Antar!
-            </p>
+<!-- DASHBOARD SECTION -->
+  <section id="dashboard-section" class="max-w-7xl mx-auto px-4 py-8 hidden">
+    <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+      <h2 class="text-2xl font-bold text-gray-800">Dunnak</h2>
+      <div class="flex items-center gap-4 flex-wrap">
+        <div id="current-time" class="text-sm text-gray-600 font-medium"></div>
+        <div class="flex items-center gap-2">
+          <span class="text-sm font-medium text-gray-600">Order</span>
+          <div id="toggle-switch" class="toggle-switch" onclick="_xyz_toggleDisplay()">
+            <div class="toggle-knob"></div>
           </div>
         </div>
-
-        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-          <!-- Jam Real-time -->
-          <div class="flex items-center gap-3">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-            <span id="current-time" class="text-xl font-bold"></span>
-          </div>
-
-          <!-- Status Online -->
-          <div class="flex items-center gap-4">
-            <span class="font-medium">Status</span>
-            <label class="relative inline-flex items-center cursor-pointer">
-              <input type="checkbox" id="courier-status" class="sr-only peer" checked>
-              <div class="w-16 h-9 bg-gray-400 rounded-full peer peer-checked:after:translate-x-7 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-8 after:w-8 after:transition-all peer-checked:bg-emerald-500"></div>
-            </label>
-            <span id="status-label" class="font-bold text-emerald-200">Online</span>
-          </div>
-
-          <!-- Keluar -->
-          <button id="logout-button" 
-                  class="bg-white/20 hover:bg-white/30 text-white font-bold px-6 py-3 rounded-xl transition backdrop-blur">
-            Keluar
-          </button>
-        </div>
+        <span id="user-email" class="text-sm font-medium text-gray-600"></span>
+        <button id="logout-button" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">Keluar</button>
       </div>
     </div>
-
-    <!-- Body – Daftar Pengantaran -->
-    <div class="p-6 lg:p-10">
-      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-6">
-        <div>
-          <h3 class="text-2xl font-bold text-gray-800">Pesanan Siap Diantar</h3>
-          <p class="text-gray-600 mt-1">Ambil pesanan dan antar secepatnya!</p>
-        </div>
-        <div class="bg-emerald-100 text-emerald-700 font-bold px-6 py-3 rounded-xl text-lg">
-          Total: <span id="total-orders">0</span> pesanan
-        </div>
-      </div>
-
-      <!-- Loading -->
-      <div id="orders-loading" class="flex justify-center py-24 hidden">
-        <div class="w-16 h-16 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-
-      <!-- Daftar Pesanan Kurir -->
-      <div id="orders-list" class="space-y-6">
-        <!-- Pesanan akan diisi otomatis oleh JavaScript -->
-      </div>
-
-      <!-- Empty State – Khusus Kurir -->
-      <div id="empty-state" class="text-center py-24 text-gray-500">
-        <svg class="w-28 h-28 mx-auto mb-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" 
-                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
-        </svg>
-        <p class="text-2xl font-bold text-gray-700">Belum Ada Pesanan</p>
-        <p class="mt-3 text-lg">Tunggu pesanan masuk atau cek kembali nanti ya!</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<script>
-// === DASHBOARD KHUSUS KURIR – JAM, STATUS, LOGOUT ===
-function updateClock() {
-  const now = new Date();
-  const time = now.toLocaleTimeString('id-ID', { 
-    hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false 
-  });
-  const date = now.toLocaleDateString('id-ID', { 
-    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' 
-  });
-  document.getElementById("current-time").textContent = `${date} | ${time}`;
-}
-updateClock();
-setInterval(updateClock, 1000);
-
-// Toggle Status Online/Offline
-document.getElementById("courier-status").addEventListener("change", function() {
-  const online = this.checked;
-  document.getElementById("status-label").textContent = online ? "Online" : "Offline";
-  document.getElementById("status-label").className = online 
-    ? "font-bold text-emerald-200" 
-    : "font-bold text-red-300";
-});
-
-// Logout
-document.getElementById("logout-button").addEventListener("click", () => {
-  if (confirm("Yakin ingin keluar dari mode kurir?")) {
-    alert("Berhasil keluar!");
-    window.location.reload();
-  }
-});
-
-// Nama kurir bisa diubah via URL parameter (contoh: ?kurir=Budi)
-const urlParams = new URLSearchParams(window.location.search);
-const courierName = urlParams.get('kurir') || "Kurir Dunnak";
-document.getElementById("courier-name").textContent = courierName;
-</script>
-
-<style>
-  .animate-spin { animation: spin 1s linear infinite; }
-  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-</style>
-    <!-- Content Area -->
-    <div class="p-8 lg:p-12">
-      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-10 gap-6">
-        <div>
-          <h3 class="text-2xl font-bold text-gray-800">Pesanan Masuk</h3>
-          <p class="text-gray-600 mt-1">Semua pesanan hari ini akan ditampilkan di sini</p>
-        </div>
-        <div class="flex items-center gap-4">
-          <div class="bg-emerald-100 text-emerald-700 font-bold px-5 py-3 rounded-xl">
-            Total: <span id="total-orders">0</span> pesanan
-          </div>
-        </div>
-      </div>
-
-      <!-- Loading Spinner -->
-      <div id="orders-loading" class="flex justify-center py-20 hidden">
-        <div class="w-16 h-16 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-
-      <!-- Daftar Pesanan -->
-      <ul id="orders-list" class="space-y-6">
-        <!-- Pesanan akan diisi oleh JavaScript -->
-      </ul>
-
-      <!-- Empty State -->
-      <div id="empty-state" class="text-center py-20 text-gray-500">
-        <svg class="w-24 h-24 mx-auto mb-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
-        </svg>
-        <p class="text-xl font-medium">Belum ada pesanan masuk</p>
-        <p class="mt-2">Tunggu pelanggan memesan ya!</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<script>
-// === DASHBOARD SCRIPT – JAM REAL-TIME + TOGGLE STATUS ===
-function updateClock() {
-  const now = new Date();
-  const options = { 
-    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
-    hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Asia/Jakarta'
-  };
-  document.getElementById("current-time").textContent = now.toLocaleDateString('id-ID', options);
-}
-updateClock();
-setInterval(updateClock, 1000);
-
-// Toggle Status Online/Offline
-document.getElementById("service-toggle").addEventListener("change", function() {
-  const isOnline = this.checked;
-  document.getElementById("status-text").textContent = isOnline ? "Online" : "Offline";
-  document.getElementById("status-text").className = isOnline 
-    ? "font-bold text-emerald-200" 
-    : "font-bold text-red-300";
-});
-
-// Logout (contoh)
-document.getElementById("logout-button").addEventListener("click", () => {
-  if (confirm("Yakin ingin keluar dari dashboard?")) {
-    // Tambahkan logika logout di sini
-    alert("Berhasil keluar!");
-    window.location.reload();
-  }
-});
-</script>
-
-<style>
-  /* Spinner lebih halus */
-  .animate-spin {
-    animation: spin 1s linear infinite;
-  }
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
-  /* Hover efek di card pesanan (opsional nanti) */
-  #orders-list li {
-    transition: all 0.3s ease;
-  }
-  #orders-list li:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-  }
-</style>
-
+    <ul id="orders-list" class="relative">
+      <div id="orders-loading" class="loading-spinner hidden"></div>
+    </ul>
+  </section> 
   <!-- DETAIL ORDER MODAL (AFTER AMBIL) -->
   <div id="detail-modal" class="fixed inset-0 hidden z-50 flex items-center justify-center p-4">
     <div class="absolute inset-0 bg-black/50" onclick="_xyz_closeDetailModal()"></div>
