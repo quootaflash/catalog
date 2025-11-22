@@ -298,50 +298,133 @@
       </div>
     </div>
   </section>
-<!-- DASHBOARD ADMIN – PROFESIONAL & MODERN 2025 -->
-<section id="dashboard-section" class="max-w-7xl mx-auto px-6 lg:px-8 py-12 hidden">
+<!-- DASHBOARD KURIR DUNNAK.COM – KHUSUS PENGANTAR -->
+<section id="dashboard-section" class="max-w-7xl mx-auto px-4 py-8 hidden">
   <div class="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden">
-    
-    <!-- Header Dashboard -->
-    <div class="bg-gradient-to-r from-emerald-600 to-emerald-700 px-8 py-10 text-white">
+
+    <!-- Header Khusus Kurir -->
+    <div class="bg-gradient-to-r from-emerald-600 to-emerald-800 px-6 py-10 text-white">
       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-        <div>
-          <h2 class="text-3xl lg:text-4xl font-black tracking-tight">Dashboard Dunnak</h2>
-          <p class="mt-2 text-emerald-100 text-lg font-medium">Kelola pesanan masuk secara real-time</p>
+        <div class="flex items-center gap-5">
+          <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" 
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-2xl lg:text-3xl font-black tracking-tight">Dashboard Kurir</h2>
+            <p class="text-emerald-100 text-base lg:text-lg font-medium mt-1">
+              <span id="courier-name">Kurir Dunnak</span> — Siap Antar!
+            </p>
+          </div>
         </div>
-        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 text-sm lg:text-base">
+
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+          <!-- Jam Real-time -->
           <div class="flex items-center gap-3">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
-            <span id="current-time" class="font-semibold"></span>
+            <span id="current-time" class="text-xl font-bold"></span>
           </div>
 
-          <!-- Toggle Status Online/Offline -->
+          <!-- Status Online -->
           <div class="flex items-center gap-4">
-            <span class="font-medium">Status Layanan</span>
+            <span class="font-medium">Status</span>
             <label class="relative inline-flex items-center cursor-pointer">
-              <input type="checkbox" id="service-toggle" class="sr-only peer" checked>
-              <div class="w-14 h-8 bg-gray-400 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-7 after:w-7 after:transition-all peer-checked:bg-emerald-600"></div>
+              <input type="checkbox" id="courier-status" class="sr-only peer" checked>
+              <div class="w-16 h-9 bg-gray-400 rounded-full peer peer-checked:after:translate-x-7 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-8 after:w-8 after:transition-all peer-checked:bg-emerald-500"></div>
             </label>
-            <span id="status-text" class="font-bold text-emerald-200">Online</span>
+            <span id="status-label" class="font-bold text-emerald-200">Online</span>
           </div>
 
-          <!-- User Info & Logout -->
-          <div class="flex items-center gap-4">
-            <div class="text-right">
-              <p class="text-sm opacity-90">Login sebagai</p>
-              <p id="user-email" class="font-bold text-lg">admin@dunnak.com</p>
-            </div>
-            <button id="logout-button" 
-                    class="bg-white/20 hover:bg-white/30 text-white font-bold px-6 py-3 rounded-xl backdrop-blur transition hover:shadow-lg">
-              Keluar
-            </button>
-          </div>
+          <!-- Keluar -->
+          <button id="logout-button" 
+                  class="bg-white/20 hover:bg-white/30 text-white font-bold px-6 py-3 rounded-xl transition backdrop-blur">
+            Keluar
+          </button>
         </div>
       </div>
     </div>
 
+    <!-- Body – Daftar Pengantaran -->
+    <div class="p-6 lg:p-10">
+      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-6">
+        <div>
+          <h3 class="text-2xl font-bold text-gray-800">Pesanan Siap Diantar</h3>
+          <p class="text-gray-600 mt-1">Ambil pesanan dan antar secepatnya!</p>
+        </div>
+        <div class="bg-emerald-100 text-emerald-700 font-bold px-6 py-3 rounded-xl text-lg">
+          Total: <span id="total-orders">0</span> pesanan
+        </div>
+      </div>
+
+      <!-- Loading -->
+      <div id="orders-loading" class="flex justify-center py-24 hidden">
+        <div class="w-16 h-16 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+
+      <!-- Daftar Pesanan Kurir -->
+      <div id="orders-list" class="space-y-6">
+        <!-- Pesanan akan diisi otomatis oleh JavaScript -->
+      </div>
+
+      <!-- Empty State – Khusus Kurir -->
+      <div id="empty-state" class="text-center py-24 text-gray-500">
+        <svg class="w-28 h-28 mx-auto mb-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" 
+                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+        </svg>
+        <p class="text-2xl font-bold text-gray-700">Belum Ada Pesanan</p>
+        <p class="mt-3 text-lg">Tunggu pesanan masuk atau cek kembali nanti ya!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// === DASHBOARD KHUSUS KURIR – JAM, STATUS, LOGOUT ===
+function updateClock() {
+  const now = new Date();
+  const time = now.toLocaleTimeString('id-ID', { 
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false 
+  });
+  const date = now.toLocaleDateString('id-ID', { 
+    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' 
+  });
+  document.getElementById("current-time").textContent = `${date} | ${time}`;
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+// Toggle Status Online/Offline
+document.getElementById("courier-status").addEventListener("change", function() {
+  const online = this.checked;
+  document.getElementById("status-label").textContent = online ? "Online" : "Offline";
+  document.getElementById("status-label").className = online 
+    ? "font-bold text-emerald-200" 
+    : "font-bold text-red-300";
+});
+
+// Logout
+document.getElementById("logout-button").addEventListener("click", () => {
+  if (confirm("Yakin ingin keluar dari mode kurir?")) {
+    alert("Berhasil keluar!");
+    window.location.reload();
+  }
+});
+
+// Nama kurir bisa diubah via URL parameter (contoh: ?kurir=Budi)
+const urlParams = new URLSearchParams(window.location.search);
+const courierName = urlParams.get('kurir') || "Kurir Dunnak";
+document.getElementById("courier-name").textContent = courierName;
+</script>
+
+<style>
+  .animate-spin { animation: spin 1s linear infinite; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+</style>
     <!-- Content Area -->
     <div class="p-8 lg:p-12">
       <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-10 gap-6">
